@@ -15,13 +15,17 @@ int minimax(rubiks* cube, int depth){
 		return 0;
 
 	int value, old_last_move;
-	void (*move_array[6]) (rubiks* cube, int count) = {R, U, L, B, D, F};
+	void (*move_array[6]) (rubiks* cube, int count) = {U, R, F, D, L, B};
 
 	// Consider all possible moves
 	for (int move = 0; move < 6; move++){
 
 		// Prevent rotating the same face consecutively
 		if (move == cube->last_move)
+			continue;
+		
+		// Prevent rotating opposite faces consecutively in both ways
+		if (cube->last_move % 3 == move % 3 && move >= 3)
 			continue;
 
 		old_last_move = cube->last_move;
@@ -32,11 +36,6 @@ int minimax(rubiks* cube, int depth){
 			// Perform rotation
 			move_array[move](cube, rotation);
 			cube->last_move = move;
-
-			// Find some way to avoid:
-			//		- Rotating opposite faces consecutively in both ways
-			//				ex: BAN ONE OF U, D or D, U
-			//		Potentially pair up move_array by index in mod 3?
 
 			// Run minimax
 			value = minimax(cube, depth-1);
