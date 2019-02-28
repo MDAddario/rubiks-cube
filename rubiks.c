@@ -135,8 +135,8 @@ void F(rubiks* cube, int count){
 // Generates a random scramble
 void scramble(rubiks* cube){
 
-	void (*move_array[6]) (rubiks* cube, int count) = {R, U, L, B, D, F};
-	char move_prefix[6] = {'R', 'U', 'L', 'B', 'D', 'F'};
+	void (*move_array[6]) (rubiks* cube, int count) = {U, R, F, D, L, B};
+	char move_prefix[6] = {'U', 'R', 'F', 'D', 'L', 'B'};
 	char move_suffix[3] = {'\0', '2', '\''};
 
 	int move, rotation;
