@@ -46,3 +46,6 @@ void scramble(rubiks*);
 
 // Verify if cube has been solved
 int check_solved(rubiks*);
+
+// Enforce 20 move solve requirement
+void superflip(rubiks*);
