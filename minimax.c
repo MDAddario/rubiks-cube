@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "rubiks.h"
 #include "minimax.h"
 
 // Minimax style algo adapted to solving rubiks cube
-int minimax(rubiks* cube, int depth){
+int minimax(rubiks* cube, int depth, int last_move){
 
 	// Check if solved
 	if (check_solved(cube))
@@ -14,35 +15,31 @@ int minimax(rubiks* cube, int depth){
 	if (!depth)
 		return 0;
 
-	int value, old_last_move;
+	int value;
 	void (*move_array[6]) (rubiks* cube, int count) = {U, R, F, D, L, B};
 
 	// Consider all possible moves in HTM
 	for (int move = 0; move < 6; move++){
 
 		// Prevent rotating the same face consecutively
-		if (move == cube->last_move)
+		if (move == last_move)
 			continue;
 		
 		// Prevent rotating opposite faces consecutively in both ways
-		if (cube->last_move % 3 == move % 3 && move >= 3)
+		if (last_move % 3 == move % 3 && move >= 3)
 			continue;
-
-		old_last_move = cube->last_move;
 
 		// Consider all possible degrees of rotation
 		for (int rotation = 1; rotation < 4; rotation++){
 
-			// Perform rotation
-			move_array[move](cube, rotation);
-			cube->last_move = move;
+			// Duplicate cube
+			rubiks* new_cube = (rubiks*)malloc(sizeof(rubiks));
+			memcpy(new_cube, cube, sizeof(rubiks));
 
-			// Run minimax
-			value = minimax(cube, depth-1);
-			
-			// Rollback move
-			move_array[move](cube, 4 - rotation);
-			cube->last_move = old_last_move;
+			// Perform rotation and maximize
+			move_array[move](new_cube, rotation);
+			value = minimax(new_cube, depth-1, move);
+			free(new_cube);
 
 			// If cube is solved, return
 			if (value)
