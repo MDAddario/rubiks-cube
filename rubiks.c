@@ -183,3 +183,30 @@ int check_solved(rubiks* cube){
 		}
 	return 1;
 }
+
+// Enforce 20 move solve requirement
+void superflip(rubiks* cube){
+
+	U(cube, 1);
+	R(cube, 2);
+	F(cube, 1);
+	B(cube, 1);
+	R(cube, 1);
+	B(cube, 2);
+	R(cube, 1);
+	U(cube, 2);
+	L(cube, 1);
+	B(cube, 2);
+	R(cube, 1);
+	U(cube, 3);
+	D(cube, 3);
+	R(cube, 2);
+	F(cube, 1);
+	R(cube, 3);
+	L(cube, 1);
+	B(cube, 2);
+	U(cube, 2);
+	F(cube, 2);
+
+	return;
+}
