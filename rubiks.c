@@ -9,12 +9,12 @@ void reset_faces(rubiks* cube){
 	
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++){
-		cube->W_array[i][j] = 'w';
-		cube->Y_array[i][j] = 'y';
-		cube->R_array[i][j] = 'r';
-		cube->O_array[i][j] = 'o';
-		cube->B_array[i][j] = 'b';
-		cube->G_array[i][j] = 'g';
+			cube->W_array[i][j] = 'w';
+			cube->Y_array[i][j] = 'y';
+			cube->R_array[i][j] = 'r';
+			cube->O_array[i][j] = 'o';
+			cube->B_array[i][j] = 'b';
+			cube->G_array[i][j] = 'g';
 		}
 	return;
 }
@@ -167,6 +167,16 @@ int check_solved(rubiks* cube){
 
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++){
+
+			/*
+			if (cube->W_array[i][j] != 'w' ||
+				cube->Y_array[i][j] != 'y' ||
+				cube->B_array[i][j] != 'b' ||
+				cube->G_array[i][j] != 'g' ||
+				cube->R_array[i][j] != 'r' ||
+				cube->O_array[i][j] != 'o')
+				return 0;
+			*/
 
 			if (cube->W_array[i][j] != 'w')
 				return 0;
